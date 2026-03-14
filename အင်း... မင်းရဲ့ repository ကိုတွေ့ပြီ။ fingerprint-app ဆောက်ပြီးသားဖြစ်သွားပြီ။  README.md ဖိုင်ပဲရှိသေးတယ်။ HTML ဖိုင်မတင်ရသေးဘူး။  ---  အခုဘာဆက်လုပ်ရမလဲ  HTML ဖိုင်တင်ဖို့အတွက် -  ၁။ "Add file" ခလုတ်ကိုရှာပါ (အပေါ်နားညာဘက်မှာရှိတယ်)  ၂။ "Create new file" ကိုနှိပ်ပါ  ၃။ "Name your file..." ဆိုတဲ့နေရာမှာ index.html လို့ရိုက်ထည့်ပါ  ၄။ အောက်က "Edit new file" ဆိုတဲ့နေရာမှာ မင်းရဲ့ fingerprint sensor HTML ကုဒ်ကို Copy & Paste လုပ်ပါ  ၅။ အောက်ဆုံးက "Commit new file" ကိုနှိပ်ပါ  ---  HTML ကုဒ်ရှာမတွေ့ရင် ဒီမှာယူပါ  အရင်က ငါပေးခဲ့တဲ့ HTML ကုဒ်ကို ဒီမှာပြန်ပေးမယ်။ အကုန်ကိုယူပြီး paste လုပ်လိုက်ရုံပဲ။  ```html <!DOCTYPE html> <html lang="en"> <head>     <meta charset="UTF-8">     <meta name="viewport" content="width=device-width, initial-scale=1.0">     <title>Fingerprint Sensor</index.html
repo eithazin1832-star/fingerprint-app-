@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fingerprint Sensor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #1a1a2e;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: system-ui, sans-serif;
+        }
+        .container {
+            background: #16213e;
+            border-radius: 2rem;
+            padding: 2rem;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 20px 30px rgba(0,0,0,0.5);
+        }
+        .sensor {
+            background: #0f3460;
+            border-radius: 2rem;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            border: 2px solid #e94560;
+            margin-bottom: 1.5rem;
+        }
+        .fingerprint {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1rem;
+            background: #1a1a2e;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+        .status {
+            background: #0f3460;
+            border-radius: 3rem;
+            padding: 1rem;
+            text-align: center;
+            color: #fff;
+            min-height: 4rem;
+        }
+        .success {
+            background: #4caf50;
+        }
+        .error {
+            background: #f44336;
+        }
+        .scanning {
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sensor" id="sensor" onclick="startScan()">
+            <div class="fingerprint" id="icon">👆</div>
+            <p style="color: #fff;">Touch Sensor</p>
+        </div>
+        <div class="status" id="status">Place your finger on the sensor</div>
+    </div>
+
+    <script>
+        function startScan() {
+            const sensor = document.getElementById('sensor');
+            const status = document.getElementById('status');
+            const icon = document.getElementById('icon');
+            
+            status.innerHTML = 'Scanning fingerprint...';
+            status.className = 'status scanning';
+            icon.innerHTML = '🔍';
+            
+            setTimeout(() => {
+                const success = Math.random() < 0.7;
+                
+                if (success) {
+                    status.innerHTML = '✅ Access Granted!';
+                    status.className = 'status success';
+                    icon.innerHTML = '✅';
+                } else {
+                    status.innerHTML = '❌ Access Denied. Try again.';
+                    status.className = 'status error';
+                    icon.innerHTML = '❌';
+                }
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
